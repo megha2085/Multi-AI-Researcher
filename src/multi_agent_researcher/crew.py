@@ -5,10 +5,10 @@ from langchain_groq import ChatGroq
 from crewai.tools import tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# Swapped to Gemma-2 for the 15,000 TPM free-tier limit!
+# Swapped to Mixtral to bypass the decommissioned Gemma model!
 groq_llm = ChatGroq(
-    model="groq/gemma2-9b-it", 
-    max_tokens=1000 
+    model="groq/mixtral-8x7b-32768", 
+    max_tokens=800 
 )
 
 @tool("Web Search")
