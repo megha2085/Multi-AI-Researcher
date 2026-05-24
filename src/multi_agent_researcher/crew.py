@@ -7,7 +7,7 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 
 # Force Groq to reserve fewer tokens so it never trips the 6000 TPM limit
 groq_llm = ChatGroq(
-    model="llama-3.1-8b-instant", # ChatGroq does not need the 'groq/' prefix
+    model="groq/llama-3.1-8b-instant", 
     max_tokens=800 
 )
 
