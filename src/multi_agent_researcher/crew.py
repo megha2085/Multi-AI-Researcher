@@ -21,7 +21,8 @@ groq_llm = LLM(
 @tool("Web Search")
 def web_search_tool(query: str) -> str:
     """Search the web for up-to-date information on any topic."""
-    search = TavilySearchResults()
+    # We restrict this to 2 results to stay safely under Groq's free token limit!
+    search = TavilySearchResults(max_results=2)
     results = search.invoke({"query": query})
     return str(results)
 
