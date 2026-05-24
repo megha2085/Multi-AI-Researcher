@@ -19,10 +19,15 @@ groq_llm = LLM(
 @tool("Web Search")
 def web_search_tool(query: str) -> str:
     """Search the web for up-to-date information on any topic."""
-    # We restrict this to 2 results to stay safely under Groq's free token limit!
-    search = TavilySearchResults(max_results=2)
+    # Drop to 1 result to keep the raw data payload small
+    search = TavilySearchResults(max_results=1)
     results = search.invoke({"query": query})
-    return str(results)
+    
+    # Force truncate the string. 2500 characters is roughly 600 tokens.
+    # This guarantees the payload will easily slide under Groq's 6000 TPM limit!
+    truncated_results = str(results)[:2500] 
+    
+    return truncated_results
 
 @CrewBase
 class MultiAgentResearcherCrew():
