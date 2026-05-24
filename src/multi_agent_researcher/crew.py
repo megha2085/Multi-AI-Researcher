@@ -1,20 +1,14 @@
-import time
 import os
-from crewai import Agent, Crew, Process, Task, LLM
+from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from langchain_groq import ChatGroq
 from crewai.tools import tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# ---------------------------------------------------------
-# THE HACKER FIX: Monkey-patching CrewAI's active bug
-# This intercepts the bad function and neutralizes it.
-# ---------------------------------------------------------
-# ---------------------------------------------------------
-
-# Initialize the native CrewAI LLM wrapper
-groq_llm = LLM(
-    model="groq/llama-3.1-8b-instant",
-    api_key=os.environ.get("GROQ_API_KEY")
+# Force Groq to reserve fewer tokens so it never trips the 6000 TPM limit
+groq_llm = ChatGroq(
+    model="llama-3.1-8b-instant", # ChatGroq does not need the 'groq/' prefix
+    max_tokens=800 
 )
 
 @tool("Web Search")
@@ -23,11 +17,8 @@ def web_search_tool(query: str) -> str:
     search = TavilySearchResults(max_results=1)
     results = search.invoke({"query": query})
     
-    # 1. Aggressive truncation (down to roughly 250 tokens)
-    truncated_results = str(results)[:1000] 
-    
-    # 2. The Free-Tier Hack: Force the pipeline to pause to let Groq's limit reset!
-    time.sleep(20) 
+    # Aggressive truncation (down to roughly 250 tokens)
+    truncated_results = str(results)[:1000]  
     
     return truncated_results
 
