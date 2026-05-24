@@ -5,10 +5,10 @@ from langchain_groq import ChatGroq
 from crewai.tools import tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# Force Groq to reserve fewer tokens so it never trips the 6000 TPM limit
+# Swapped to Gemma-2 for the 15,000 TPM free-tier limit!
 groq_llm = ChatGroq(
-    model="groq/llama-3.1-8b-instant", 
-    max_tokens=800 
+    model="groq/gemma2-9b-it", 
+    max_tokens=1000 
 )
 
 @tool("Web Search")
