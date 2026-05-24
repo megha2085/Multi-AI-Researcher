@@ -5,11 +5,12 @@ from langchain_groq import ChatGroq
 from crewai.tools import tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# Swapped to Mixtral to bypass the decommissioned Gemma model!
+# The reliable, permanently supported Llama 3.1 model
 groq_llm = ChatGroq(
-    model="groq/mixtral-8x7b-32768", 
+    model="groq/llama-3.1-8b-instant", 
     max_tokens=800 
 )
+
 
 @tool("Web Search")
 def web_search_tool(query: str) -> str:
@@ -17,8 +18,8 @@ def web_search_tool(query: str) -> str:
     search = TavilySearchResults(max_results=1)
     results = search.invoke({"query": query})
     
-    # Aggressive truncation (down to roughly 250 tokens)
-    truncated_results = str(results)[:1000]  
+    # Ultra-strict truncation to guarantee we stay under the 6000 TPM limit
+    truncated_results = str(results)[:400]  
     
     return truncated_results
 
