@@ -8,8 +8,6 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 # THE HACKER FIX: Monkey-patching CrewAI's active bug
 # This intercepts the bad function and neutralizes it.
 # ---------------------------------------------------------
-import crewai.llms.cache as _crewai_cache
-_crewai_cache.mark_cache_breakpoint = lambda msg: msg
 # ---------------------------------------------------------
 
 # Initialize the native CrewAI LLM wrapper
