@@ -5,3 +5,4 @@ tavily-python
 streamlit
 python-dotenv
 litellm
+chromadb>=1.5.0
