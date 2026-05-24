@@ -5,10 +5,10 @@ from langchain_groq import ChatGroq
 from crewai.tools import tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
-# The reliable, permanently supported Llama 3.1 model
+# Swapped to Llama 3.3 70B because Groq gives it a massive 12,000 TPM Free Tier Limit!
 groq_llm = ChatGroq(
-    model="groq/llama-3.1-8b-instant", 
-    max_tokens=800 
+    model="groq/llama-3.3-70b-versatile", 
+    max_tokens=1500 
 )
 
 
@@ -19,7 +19,7 @@ def web_search_tool(query: str) -> str:
     results = search.invoke({"query": query})
     
     # Ultra-strict truncation to guarantee we stay under the 6000 TPM limit
-    truncated_results = str(results)[:400]  
+    truncated_results = str(results)[:1200]  
     
     return truncated_results
 
