@@ -1,0 +1,14 @@
+research_task:
+  description: >
+    Search the web for the latest information on {topic}. 
+    Compile the key findings and verifiable sources.
+  expected_output: >
+    A bulleted list of key facts, statistics, and URLs.
+  agent: researcher
+
+writing_task:
+  description: >
+    Using the research findings, write a well-structured markdown report on {topic}.
+  expected_output: >
+    A polished markdown document with headers, bullet points, and an executive summary.
+  agent: writer

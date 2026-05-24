@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#006B7D" # A deep, rich teal
+backgroundColor = "#FFFFFF" # Ultra-clean white background
+secondaryBackgroundColor = "#F0F6F7" # Very light blue-grey for sidebars/boxes
+textColor = "#1E293B" # Crisp, dark slate text
+font = "sans serif"
